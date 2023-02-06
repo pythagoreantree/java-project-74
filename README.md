@@ -5,4 +5,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8f409cc6c1037e108bed/test_coverage)](https://codeclimate.com/github/RedGradient/java-project-73/test_coverage)
 
 # Task Manager
-[Link to Project]()
+Task Manager is the web app that allows to perform management over tasks, assign them to different performers and track it's implementation.
