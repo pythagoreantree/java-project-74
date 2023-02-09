@@ -14,5 +14,4 @@ public class User extends BaseModel {
     private String lastName;
     private String email;
     private String password;
-
 }
