@@ -1,12 +1,7 @@
 package hexlet.code.app.models;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +11,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
