@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
@@ -16,7 +16,7 @@ public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    public Long id;
-    @CreatedDate
-    public Instant createdAt;
+    private Long id;
+    @CreationTimestamp
+    private Instant createdAt;
 }
