@@ -40,7 +40,7 @@ dependencies {
         'org.springframework.boot:spring-boot-starter-web',
         'org.springframework.boot:spring-boot-starter-data-jpa',
         'org.springframework.boot:spring-boot-starter-actuator',
-        'org.springframework.boot:spring-boot-starter-security',
+//        'org.springframework.boot:spring-boot-starter-security',
         'org.springframework.boot:spring-boot-starter-validation',
 
         'com.querydsl:querydsl-jpa:5.0.0',
@@ -53,10 +53,10 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok:1.18.26'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'com.github.database-rider:rider-junit5:1.32.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     runtimeOnly(
-
         'org.postgresql:postgresql:42.5.3'
     )
 
@@ -91,7 +91,7 @@ liquibase {
             // Сравниваем с моделями, задавая пакет
             referenceUrl 'hibernate:spring:io.hexlet.javaspringblog.model.' +
                     '?dialect=org.hibernate.dialect.H2Dialect' +
-                    '&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy'
+                    '&hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy'
         }
     }
 }
