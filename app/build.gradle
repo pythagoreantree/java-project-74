@@ -29,6 +29,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.jetbrains:annotations:23.0.0'
     annotationProcessor(
         'org.projectlombok:lombok:1.18.26',
         'com.querydsl:querydsl-apt:5.0.0:jpa',
@@ -89,7 +90,7 @@ liquibase {
             url 'jdbc:h2:./database'
 
             // Сравниваем с моделями, задавая пакет
-            referenceUrl 'hibernate:spring:io.hexlet.javaspringblog.model.' +
+            referenceUrl 'hibernate:spring:hexlet.code.app.models' +
                     '?dialect=org.hibernate.dialect.H2Dialect' +
                     '&hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy'
         }
