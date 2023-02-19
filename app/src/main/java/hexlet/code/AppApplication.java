@@ -1,4 +1,4 @@
-package hexlet.code.app;
+package hexlet.code;
 
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;

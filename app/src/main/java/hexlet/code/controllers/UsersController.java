@@ -1,14 +1,17 @@
-package hexlet.code.app.controllers;
+package hexlet.code.controllers;
 
-import hexlet.code.app.UserNotFoundException;
-import hexlet.code.app.models.User;
-import hexlet.code.app.models.UserRepository;
+import hexlet.code.UserNotFoundException;
+import hexlet.code.models.User;
+import hexlet.code.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 public class UsersController {
+
+    public static final String USER_CONTROLLER_PATH = "/users";
+
     @Autowired
     private UserRepository userRepository;
 

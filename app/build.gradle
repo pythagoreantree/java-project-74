@@ -21,7 +21,7 @@ compileJava {
 }
 
 application {
-    mainClass = 'hexlet.code.app.AppApplication'
+    mainClass = 'hexlet.code.AppApplication'
 }
 
 repositories {
@@ -41,7 +41,7 @@ dependencies {
         'org.springframework.boot:spring-boot-starter-web',
         'org.springframework.boot:spring-boot-starter-data-jpa',
         'org.springframework.boot:spring-boot-starter-actuator',
-//        'org.springframework.boot:spring-boot-starter-security',
+        'org.springframework.boot:spring-boot-starter-security',
         'org.springframework.boot:spring-boot-starter-validation',
 
         'com.querydsl:querydsl-jpa:5.0.0',
@@ -49,7 +49,10 @@ dependencies {
         'com.h2database:h2:2.1.214',
         'org.liquibase:liquibase-core:4.19.0',
         'org.springdoc:springdoc-openapi-ui:1.5.12',
-        'com.rollbar:rollbar-spring-boot-webmvc:1.9.0'
+        'com.rollbar:rollbar-spring-boot-webmvc:1.9.0',
+
+        'io.jsonwebtoken:jjwt:0.9.1'
+
     )
 
     compileOnly 'org.projectlombok:lombok:1.18.26'
@@ -90,7 +93,7 @@ liquibase {
             url 'jdbc:h2:./database'
 
             // Сравниваем с моделями, задавая пакет
-            referenceUrl 'hibernate:spring:hexlet.code.app.models' +
+            referenceUrl 'hibernate:spring:hexlet.code.models' +
                     '?dialect=org.hibernate.dialect.H2Dialect' +
                     '&hibernate.physical_naming_strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy'
         }
@@ -115,3 +118,5 @@ tasks.named('test') {
 
 task stage(dependsOn: [clean, installDist])
 installDist.mustRunAfter clean
+
+diffChangeLog.dependsOn compileJava
