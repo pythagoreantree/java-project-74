@@ -4,8 +4,6 @@ import hexlet.code.dto.UserDto;
 import hexlet.code.models.User;
 import hexlet.code.repositories.UserRepository;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
 
-import java.util.List;
-
 import static hexlet.code.config.security.SecurityConfiguration.DEFAULT_AUTHORITIES;
 
 
@@ -26,8 +22,6 @@ import static hexlet.code.config.security.SecurityConfiguration.DEFAULT_AUTHORIT
 @Transactional
 @AllArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
-
-//    public static final List<GrantedAuthority> DEFAULT_AUTHORITIES = List.of(new SimpleGrantedAuthority("USER"));
 
     private final UserRepository userRepository;
 
