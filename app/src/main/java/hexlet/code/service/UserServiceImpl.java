@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userToUpdate.setEmail(userDto.getEmail());
         userToUpdate.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return userRepository.save(userToUpdate);
-
     }
 
     @Override
