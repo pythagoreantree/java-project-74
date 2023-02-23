@@ -90,7 +90,7 @@ liquibase {
             // Указываем источник, с которым будут сравниваться изменения
             username ''
             password ''
-            url 'jdbc:h2:./database'
+            url 'jdbc:h2:file:./database-dev'
 
             // Сравниваем с моделями, задавая пакет
             referenceUrl 'hibernate:spring:hexlet.code.models' +

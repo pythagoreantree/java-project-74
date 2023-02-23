@@ -10,7 +10,7 @@ spring:
   datasource:
     username: ""
     password: ""
-    url: jdbc:h2:file:/Users/redgradient/IdeaProjects/java-project-73/app/database-dev
+    url: jdbc:h2:file:./database-dev
 
   jpa:
     show-sql: true
