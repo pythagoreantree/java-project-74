@@ -20,12 +20,23 @@ import static hexlet.code.config.security.SecurityConfiguration.DEFAULT_AUTHORIT
 
 @Service
 @Transactional
-@AllArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
-    private final PasswordEncoder passwordEncoder;
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+    public UserRepository getUserRepository() {
+        return this.userRepository;
+    }
+    public PasswordEncoder getPasswordEncoder() {
+        return this.passwordEncoder;
+    }
 
     @Override
     public User createNewUser(final UserDto userDto) {
