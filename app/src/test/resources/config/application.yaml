@@ -1,6 +1,8 @@
 base-url: /api
 
 spring:
+  profiles:
+    active: test
 
   jpa:
     show-sql: true
