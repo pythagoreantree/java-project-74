@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 @Profile(SpringConfigForIT.TEST_PROFILE)
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = "hexlet.code")
-@PropertySource(value = "classpath:/config/application-test.yaml")
+@PropertySource(value = "classpath:/config/application.yaml")
 public class SpringConfigForIT {
     public static final String TEST_PROFILE = "test";
 

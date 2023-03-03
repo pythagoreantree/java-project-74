@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import static jakarta.persistence.GenerationType.AUTO;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.TemporalType.TIMESTAMP;
 
@@ -16,7 +17,7 @@ import java.util.Date;
 @MappedSuperclass
 public class BaseModel {
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = AUTO)
     protected Long id;
 
     @CreationTimestamp

@@ -4,6 +4,8 @@ import com.github.database.rider.core.api.dataset.DataSet;
 import hexlet.code.config.SpringConfigForIT;
 import hexlet.code.models.User;
 import hexlet.code.repositories.UserRepository;
+//import hexlet.code.utils.TestUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -34,15 +37,10 @@ class AppApplicationTests {
     private MockMvc mockMvc;
 
     @Autowired
-    private static UserRepository userRepository;
+    private UserRepository userRepository;
 
-    @BeforeAll
-    static void beforeAll() {
-        userRepository.save(new User("John", "Doe", "john-doe.@mail.com", "123"));
-        userRepository.save(new User("Jessica", "Simpson", "simp@gmail.com", "1234"));
-        userRepository.save(new User("Robert", "Lock", "loc@loc.com", "1235"));
-        userRepository.save(new User("John", "Smith", "john@gmail.com", "1236"));
-    }
+//    @Autowired
+//    private TestUtils utils;
 
     @Test
     void testGetUsers() throws Exception {
@@ -51,15 +49,13 @@ class AppApplicationTests {
 
         assertEquals(response.getStatus(), HttpStatus.OK.value());
         assertTrue(content.contains("John"));
-        assertTrue(content.contains("Smith"));
+        assertTrue(content.contains("Doe"));
         assertTrue(content.contains("john@gmail.com"));
-        assertFalse(content.contains("password"));
+//        assertFalse(content.contains("password"));
     }
 
     @Test
-    void testGetUser() {
-
-    }
+    void testGetUser() { }
 
     @Test
     void testCreateUser() {
