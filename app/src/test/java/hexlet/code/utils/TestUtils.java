@@ -78,7 +78,7 @@ public class TestUtils {
 //        final String token = jwtHelper.expiring(Map.of("username", byUser));
 //        request.header(AUTHORIZATION, token);
 //
-//        return perform(request);
+        return perform(request);
     }
 
     public ResultActions perform(final MockHttpServletRequestBuilder request) throws Exception {
