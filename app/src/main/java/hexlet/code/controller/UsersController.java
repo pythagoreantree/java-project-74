@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
 
     public static final String ID = "/{id}";
-    public static final String USER_CONTROLLER_PATH = "/api/users";
+    public static final String USER_CONTROLLER_PATH = "/users";
+    private static final String ONLY_OWNER_BY_ID = """
+        @userRepository.findById(#id).get().getEmail() == authentication.getName()
+    """;
 
     @Autowired
     private UserRepository userRepository;
@@ -34,7 +38,7 @@ public class UsersController {
                     @ApiResponse(responseCode = "404", description = "User with that id not found")
             }
     )
-    @GetMapping(path = "/{id}")
+    @GetMapping(ID)
     public User getUser(@PathVariable Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
@@ -55,7 +59,8 @@ public class UsersController {
                     @ApiResponse(responseCode = "404", description = "User with that id not found")
             }
     )
-    @PutMapping(path = "/{id}")
+    @PutMapping(ID)
+    @PreAuthorize(ONLY_OWNER_BY_ID)
     public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
         updatedUser.setId(id);
         return userRepository.save(updatedUser);
@@ -66,7 +71,8 @@ public class UsersController {
             @ApiResponse(responseCode = "200", description = "User deleted"),
             @ApiResponse(responseCode = "404", description = "User with that id not found")
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping(ID)
+    @PreAuthorize(ONLY_OWNER_BY_ID)
     public void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
     }

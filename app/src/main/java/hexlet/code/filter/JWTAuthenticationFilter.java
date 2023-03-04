@@ -25,10 +25,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final JWTHelper jwtHelper;
 
-    public JWTAuthenticationFilter(final AuthenticationManager authenticationManager,
-                                   final RequestMatcher loginRequest,
+    public JWTAuthenticationFilter(final RequestMatcher loginRequest,
                                    final JWTHelper jwtHelper) {
-        super(authenticationManager);
+//        super(authenticationManager);
         super.setRequiresAuthenticationRequestMatcher(loginRequest);
         this.jwtHelper = jwtHelper;
     }

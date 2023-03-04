@@ -5,19 +5,13 @@ import hexlet.code.component.JWTHelper;
 import hexlet.code.filter.JWTAuthenticationFilter;
 import hexlet.code.filter.JWTAuthorizationFilter;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
 
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -38,21 +32,15 @@ import static org.springframework.http.HttpMethod.POST;
 import static hexlet.code.controller.UsersController.USER_CONTROLLER_PATH;
 
 @Configuration
-@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Import(EncoderFactory.class)
 public class SecurityConfiguration {
     public static final String LOGIN = "/login";
     public static final List<GrantedAuthority> DEFAULT_AUTHORITIES = List.of(new SimpleGrantedAuthority("USER"));
-
     private final RequestMatcher publicUrls;
     private final RequestMatcher loginRequest;
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
     private final JWTHelper jwtHelper;
-
-    @Autowired
-    private ApplicationContext appContext;
 
     public SecurityConfiguration(@Value("${base-url}") final String baseUrl,
                                  final UserDetailsService userDetailsService,
@@ -71,16 +59,19 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-        return auth.getObject();
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder);
+
+        return authProvider;
     }
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
 
         final var authenticationFilter = new JWTAuthenticationFilter(
-                (AuthenticationManager) appContext.getBean("authenticationManager"),
                 loginRequest,
                 jwtHelper
         );
@@ -90,24 +81,22 @@ public class SecurityConfiguration {
                 jwtHelper
         );
 
-        http.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers(publicUrls).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(authenticationFilter)
-                .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement().disable()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .logout().disable();
+        http
+            .csrf().disable()
+            .authorizeHttpRequests()
+            .requestMatchers(publicUrls).permitAll()
+            .anyRequest().authenticated()
+            .and()
+
+//            .addFilter(authenticationFilter)
+//            .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
+
+            .sessionManagement().disable()
+            .formLogin().disable()
+            .httpBasic().disable()
+            .logout().disable();
 
         return http.build();
     }
-
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 }
 
