@@ -23,4 +23,15 @@
     <changeSet author="mteplinskaya (generated)" id="1677969394412-3">
         <addUniqueConstraint columnNames="email" constraintName="UC_USERSEMAIL_COL" tableName="users"/>
     </changeSet>
+
+    <changeSet author="mteplinskaya" id="insert-1">
+        <insert tableName="users">
+            <column name="active" value="true"/>
+            <column name="email" value="john@gmail.com"/>
+            <column name="first_name" value="John"/>
+            <column name="last_name" value="Donn"/>
+            <column name="password" value="$2a$12$N2j/3SUknIBOOY9kwTAgW.KpKUxyiTe/biBeJucCIebuOejTX3Gni"/>
+            <column name="role" value="USER"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
