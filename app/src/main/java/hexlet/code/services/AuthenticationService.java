@@ -24,11 +24,11 @@ public class AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
+                        request.getUsername(),
                         request.getPassword()
                 )
         );
-        var user = userService.loadUserByUsername(request.getEmail());
+        var user = userService.loadUserByUsername(request.getUsername());
         var jwtToken = jwtHelper.generateToken(user);
         return AuthenticationResponse.builder()
                 .jwtToken(jwtToken)

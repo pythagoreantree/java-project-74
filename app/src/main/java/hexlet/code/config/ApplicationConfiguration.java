@@ -1,5 +1,7 @@
 package hexlet.code.config;
 
+import hexlet.code.models.User;
+import hexlet.code.models.UserDetailsImpl;
 import hexlet.code.repositories.UserRepository;
 import hexlet.code.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,11 @@ public class ApplicationConfiguration {
     private UserRepository userRepository;
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> (UserDetails) userRepository.findByEmail(username)
+        return username -> {
+                User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                return new UserDetailsImpl(user);
+        };
     }
 
     @Bean
