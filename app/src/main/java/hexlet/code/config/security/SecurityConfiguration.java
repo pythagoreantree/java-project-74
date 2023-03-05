@@ -32,19 +32,15 @@ public class SecurityConfiguration {
         http
             .csrf().disable()
             .authorizeHttpRequests()
-            .requestMatchers("/api/login").permitAll()
+            .requestMatchers("/api/login", "/**").permitAll()
             .anyRequest().authenticated();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.headers().frameOptions().disable();
 
         http
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-        http
-            .formLogin().disable()
-            .httpBasic().disable()
-            .logout().disable();
 
         return http.build();
     }
